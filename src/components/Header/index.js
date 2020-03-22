@@ -1,12 +1,23 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Input, Select, Button } from "antd";
+import { MdClear } from "react-icons/md";
 
 import logo from "../../logo.svg";
 import Toggle from "../Toggle";
 
+const { Search } = Input;
+const { Option } = Select;
+
 const Header = props => {
-  const { toggleTheme } = props;
+  const {
+    toggleTheme,
+    searchOnChange,
+    searchString,
+    priceFilter,
+    clearFilters
+  } = props;
   return (
     <>
       <Navbar
@@ -34,6 +45,28 @@ const Header = props => {
             <Link to="/products">
               <Nav className="nav-link">Products</Nav>
             </Link>
+          </Nav>
+          <Nav>
+            <Select defaultValue="all" onChange={priceFilter}>
+              <Option value="below">Below 2000</Option>
+              <Option value="above">Above 2000</Option>
+              <Option value="all">All</Option>
+            </Select>
+          </Nav>
+          <Nav>
+            <Search
+              placeholder="search.."
+              onChange={e => searchOnChange(e.target.value)}
+              onSearch={value => searchOnChange(value)}
+              // style={{ width: 200 }}
+              value={searchString}
+            />
+          </Nav>
+          <Nav>
+            <p className="pointer" title="clear filters" onClick={clearFilters}>
+              {/* <MdClear color="white" size="25px" /> */}
+              <Button danger>Clear filters</Button>
+            </p>
           </Nav>
           <Nav>
             <Nav.Link eventKey={2}>

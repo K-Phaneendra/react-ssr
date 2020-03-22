@@ -23,3 +23,6 @@
 .product-card-container {
   justify-content: space-around;
 }
+.pointer {
+  cursor: pointer;
+}
