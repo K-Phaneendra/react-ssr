@@ -1,0 +1,25 @@
+.fullWidth {
+  width: 100%
+}
+/* .header {
+  height: 9vh
+} */
+.app-body {
+  min-height: 91vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+.dark-theme {
+  background-color: #282c34;
+  color: white;
+}
+.light-theme {
+  background-color: #f7fbfc;
+  color: black;
+}
+.product-card-container {
+  justify-content: space-around;
+}
