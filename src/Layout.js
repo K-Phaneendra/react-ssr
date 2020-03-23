@@ -9,7 +9,7 @@ const Layout = props => {
   const [isLightTheme, setTheme] = useState(true);
   const [searchString, setSearchString] = useState("");
   const [priceFilter, setPriceFilter] = useState("all");
-  const [cartCount, setAddToCart] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
 
   const toggleTheme = () => {
     setTheme(prevBool => !prevBool);
@@ -28,9 +28,11 @@ const Layout = props => {
   const contextValue = {
     searchString,
     priceFilter,
-    cartCount,
-    setAddToCart
+    cartItems,
+    setCartItems
   };
+
+  const cartCount = cartItems.length;
 
   return (
     <Container fluid>
@@ -43,7 +45,6 @@ const Layout = props => {
           priceFilter={priceFilter}
           clearFilters={clearFilters}
           cartCount={cartCount}
-          setAddToCart={setAddToCart}
         />
       </Row>
       <AppContext.Provider value={contextValue}>

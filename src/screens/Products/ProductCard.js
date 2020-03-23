@@ -16,7 +16,7 @@ const staticImage =
   "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png";
 
 const ProductCard = props => {
-  const { item, toggleIsFavorite, addToCart } = props;
+  const { item, toggleIsFavorite, cartItems, addToCart, removeFromCart } = props;
   // const productImage = !props.image ? staticImage : props.image
 
   const getAvailableStatus = () => {
@@ -60,6 +60,23 @@ const ProductCard = props => {
   const getAddToCardButton = () => {
     const sellableDate = new Date(item.sellableDate).toDateString();
     const currentDate = new Date().toDateString();
+
+    if (cartItems.includes(item.id)) {
+      return (
+        <div className="padding-left">
+          <Button
+            type="secondary"
+            icon={<AiOutlineShoppingCart />}
+            danger
+            // loading={this.state.iconLoading}
+            onClick={() => removeFromCart(item.id)}
+          >
+            &nbsp;Remove from cart
+          </Button>
+        </div>
+      );
+    }
+
     if (sellableDate > currentDate) {
       return (
         <div className="padding-left">
@@ -68,7 +85,7 @@ const ProductCard = props => {
             icon={<AiOutlineShoppingCart />}
             danger
             // loading={this.state.iconLoading}
-            onClick={addToCart}
+            onClick={() => addToCart(item.id)}
           >
             &nbsp;Add to cart
           </Button>

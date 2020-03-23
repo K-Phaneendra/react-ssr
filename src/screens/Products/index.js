@@ -11,7 +11,7 @@ import { AppContext } from "../../Layout";
 const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const Products = () => {
-  const { searchString, priceFilter, cartCount, setAddToCart } = useContext(AppContext);
+  const { searchString, priceFilter, cartItems, setCartItems } = useContext(AppContext);
   const [productsList, setProductsList] = useState([]);
 
   const fetchProducts = async () => {
@@ -37,8 +37,18 @@ const Products = () => {
     setProductsList(productsListClone);
   };
 
-  const addToCart = () => {
-    setAddToCart(cartCount + 1)
+  const addToCart = (productId) => {
+    const cartItemsClone = [...cartItems]
+    cartItemsClone.push(productId)
+    setCartItems(cartItemsClone)
+  }
+  const removeFromCart = (productId) => {
+    const cartItemsClone = [...cartItems]
+    const indexOfProduct = cartItemsClone.indexOf(productId)
+    if (indexOfProduct > -1) {
+      cartItemsClone.splice(indexOfProduct, 1)
+    }
+    setCartItems(cartItemsClone)
   }
 
   const getFilterByPrice = () => {
@@ -105,7 +115,9 @@ const Products = () => {
             <ProductsList
               products={filteredProducts}
               toggleIsFavorite={toggleIsFavorite}
+              cartItems={cartItems}
               addToCart={addToCart}
+              removeFromCart={removeFromCart}
             />
           )}
         </Col>

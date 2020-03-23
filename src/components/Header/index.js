@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Input, Select, Button, Badge } from "antd";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -18,13 +18,8 @@ const Header = props => {
     priceFilter,
     filteredPrice,
     clearFilters,
-    cartCount,
-    setAddToCart
+    cartCount
   } = props;
-
-  const clearCart = () => {
-    setAddToCart(0);
-  };
 
   return (
     <>
@@ -49,6 +44,11 @@ const Header = props => {
             React - SSR application
           </Navbar.Brand>
         </Link>
+        <Nav className="nav-padding">
+          <Badge count={cartCount} className="cart-count-mobile">
+            <AiOutlineShoppingCart className="header-cart" />
+          </Badge>
+        </Nav>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
@@ -81,11 +81,6 @@ const Header = props => {
             <Badge count={cartCount} className="cart-count">
               <AiOutlineShoppingCart className="header-cart" />
             </Badge>
-            <NavDropdown id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={clearCart}>
-                Clear cart
-              </NavDropdown.Item>
-            </NavDropdown>
           </Nav>
           <Nav>
             <Nav.Link eventKey={2}>
