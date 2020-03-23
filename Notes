@@ -1,4 +1,7 @@
 Babel packages to run jsx on server
 npm i @babel/preset-env @babel/preset-react @babel/register ignore-styles --save-dev
 
+requirements:
+add to cart
+showing n no. of results
 

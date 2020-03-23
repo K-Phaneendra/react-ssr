@@ -1,8 +1,8 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Input, Select, Button } from "antd";
-import { MdClear } from "react-icons/md";
+import { Input, Select, Button, Badge } from "antd";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import logo from "../../logo.svg";
 import Toggle from "../Toggle";
@@ -16,8 +16,16 @@ const Header = props => {
     searchOnChange,
     searchString,
     priceFilter,
-    clearFilters
+    filteredPrice,
+    clearFilters,
+    cartCount,
+    setAddToCart
   } = props;
+
+  const clearCart= () => {
+    setAddToCart(0)
+  }
+
   return (
     <>
       <Navbar
@@ -26,6 +34,8 @@ const Header = props => {
         expand="lg"
         bg="dark"
         variant="dark"
+        // sticky="top"
+        fixed="top"
       >
         <Link to="/">
           <Navbar.Brand>
@@ -36,7 +46,7 @@ const Header = props => {
               height="30"
               className="d-inline-block align-top"
             />{" "}
-            React Bootstrap
+            React - SSR application
           </Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -46,14 +56,14 @@ const Header = props => {
               <Nav className="nav-link">Products</Nav>
             </Link>
           </Nav>
-          <Nav>
-            <Select defaultValue="all" onChange={priceFilter}>
+          <Nav className="nav-padding">
+            <Select value={priceFilter} onChange={filteredPrice}>
               <Option value="below">Below 2000</Option>
               <Option value="above">Above 2000</Option>
               <Option value="all">All</Option>
             </Select>
           </Nav>
-          <Nav>
+          <Nav className="nav-padding">
             <Search
               placeholder="search.."
               onChange={e => searchOnChange(e.target.value)}
@@ -62,11 +72,18 @@ const Header = props => {
               value={searchString}
             />
           </Nav>
-          <Nav>
+          <Nav className="nav-padding">
             <p className="pointer" title="clear filters" onClick={clearFilters}>
-              {/* <MdClear color="white" size="25px" /> */}
               <Button danger>Clear filters</Button>
             </p>
+          </Nav>
+          <Nav className="nav-padding">
+            <Badge count={cartCount} className="cart-count">
+              <AiOutlineShoppingCart className="header-cart" />
+            </Badge>
+            <NavDropdown id="basic-nav-dropdown">
+              <NavDropdown.Item onClick={clearCart}>Clear cart</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
           <Nav>
             <Nav.Link eventKey={2}>

@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+
 import { FETCH_PRODUCTS } from "../../actions";
 import ProductsList from "./ProductsList";
 
 import { AppContext } from "../../Layout";
 
+const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
 const Products = () => {
-  const { searchString, priceFilter } = useContext(AppContext);
+  const { searchString, priceFilter, cartCount, setAddToCart } = useContext(AppContext);
   const [productsList, setProductsList] = useState([]);
 
   const fetchProducts = async () => {
@@ -31,6 +36,10 @@ const Products = () => {
     });
     setProductsList(productsListClone);
   };
+
+  const addToCart = () => {
+    setAddToCart(cartCount + 1)
+  }
 
   const getFilterByPrice = () => {
     const filteredProducts = [];
@@ -61,21 +70,23 @@ const Products = () => {
     return filteredProducts;
   };
 
-  const getFilterBySearch = (jsonArray) => {
+  const getFilterBySearch = jsonArray => {
     return jsonArray.filter(item => {
       const itemName = item.name.toLowerCase();
       const designerName = item.designer.toLowerCase();
-      if (itemName.includes(searchString.toLowerCase()) ||
-      designerName.includes(searchString.toLowerCase())) {
-        return true
+      if (
+        itemName.includes(searchString.toLowerCase()) ||
+        designerName.includes(searchString.toLowerCase())
+      ) {
+        return true;
       }
-      return null
-    })
-  }
+      return null;
+    });
+  };
 
   const getFilteredProducts = () => {
-    const filterByPrice = getFilterByPrice()
-    const filterBySearch = getFilterBySearch(filterByPrice)
+    const filterByPrice = getFilterByPrice();
+    const filterBySearch = getFilterBySearch(filterByPrice);
 
     return filterBySearch;
   };
@@ -89,10 +100,14 @@ const Products = () => {
           <SideFilter searchOnChange={searchOnChange} />
         </Col> */}
         <Col sm={12}>
-          <ProductsList
-            products={filteredProducts}
-            toggleIsFavorite={toggleIsFavorite}
-          />
+          {filteredProducts.length === 0 && <Spin indicator={loadingIcon} />}
+          {filteredProducts.length > 0 && (
+            <ProductsList
+              products={filteredProducts}
+              toggleIsFavorite={toggleIsFavorite}
+              addToCart={addToCart}
+            />
+          )}
         </Col>
       </Row>
     </Container>

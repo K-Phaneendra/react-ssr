@@ -8,7 +8,8 @@ export const AppContext = createContext();
 const Layout = props => {
   const [isLightTheme, setTheme] = useState(true);
   const [searchString, setSearchString] = useState("");
-  const [priceFilter, setPriceFilter] = useState('all');
+  const [priceFilter, setPriceFilter] = useState("all");
+  const [cartCount, setAddToCart] = useState(0);
 
   const toggleTheme = () => {
     setTheme(prevBool => !prevBool);
@@ -17,22 +18,33 @@ const Layout = props => {
     setSearchString(value);
   };
   const filteredPrice = key => {
-    setPriceFilter(key)
-  }
+    setPriceFilter(key);
+  };
   const clearFilters = () => {
-    setSearchString('');
-    setPriceFilter('all')
-  }
+    setSearchString("");
+    setPriceFilter("all");
+  };
 
   const contextValue = {
     searchString,
-    priceFilter
+    priceFilter,
+    cartCount,
+    setAddToCart
   };
 
   return (
     <Container fluid>
-      <Row>
-        <Header toggleTheme={toggleTheme} searchOnChange={searchOnChange} searchString={searchString} priceFilter={filteredPrice} clearFilters={clearFilters} />
+      <Row className={`header ${isLightTheme ? "light-theme" : "dark-theme"}`}>
+        <Header
+          toggleTheme={toggleTheme}
+          searchOnChange={searchOnChange}
+          searchString={searchString}
+          filteredPrice={filteredPrice}
+          priceFilter={priceFilter}
+          clearFilters={clearFilters}
+          cartCount={cartCount}
+          setAddToCart={setAddToCart}
+        />
       </Row>
       <AppContext.Provider value={contextValue}>
         <Row className="App">

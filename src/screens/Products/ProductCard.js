@@ -16,7 +16,7 @@ const staticImage =
   "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png";
 
 const ProductCard = props => {
-  const { item, toggleIsFavorite } = props;
+  const { item, toggleIsFavorite, addToCart } = props;
   // const productImage = !props.image ? staticImage : props.image
 
   const getAvailableStatus = () => {
@@ -68,7 +68,7 @@ const ProductCard = props => {
             icon={<AiOutlineShoppingCart />}
             danger
             // loading={this.state.iconLoading}
-            // onClick={this.enterIconLoading}
+            onClick={addToCart}
           >
             &nbsp;Add to cart
           </Button>
