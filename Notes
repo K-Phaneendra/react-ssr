@@ -1,6 +1,14 @@
 Babel packages to run jsx on server
 npm i @babel/preset-env @babel/preset-react @babel/register ignore-styles --save-dev
 
+-- HOW TO RUN --
+npm start
+to start the application in CSR
+npm run build
+to build the react application
+npm run SSR
+to run react as server side rendering
+
 --PERFORMANCE--
 
 CSR
