@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   res.send(`NodeJS with Express is running on port ${PORT}`)
 })
 
-app.use('^/$', (req, res, next) => {
+const Run_React_App = (res) => {
   fs.readFile(path.resolve('./build/index.html'), 'utf-8', (err, data) => {
     if (err) {
       console.log('error - - ', err)
@@ -31,18 +31,13 @@ app.use('^/$', (req, res, next) => {
       `<div id="root">${ReactDomServer.renderToString(<App />)}</div>`
     ))
   })
+}
+
+app.use('^/$', (req, res, next) => {
+  Run_React_App(res)
 })
 app.use('/products', (req, res, next) => {
-  fs.readFile(path.resolve('./build/index.html'), 'utf-8', (err, data) => {
-    if (err) {
-      console.log('error - - ', err)
-      return res.status(500).send("Some error happened")
-    }
-    return res.send(data.replace(
-      '<div id="root"></div>',
-      `<div id="root">${ReactDomServer.renderToString(<App />)}</div>`
-    ))
-  })
+  Run_React_App(res)
 })
 
 server.listen(PORT, () => {

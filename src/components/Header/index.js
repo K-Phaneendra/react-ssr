@@ -22,9 +22,9 @@ const Header = props => {
     setAddToCart
   } = props;
 
-  const clearCart= () => {
-    setAddToCart(0)
-  }
+  const clearCart = () => {
+    setAddToCart(0);
+  };
 
   return (
     <>
@@ -80,10 +80,12 @@ const Header = props => {
           <Nav className="nav-padding">
             <Badge count={cartCount} className="cart-count">
               <AiOutlineShoppingCart className="header-cart" />
-              <NavDropdown id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={clearCart}>Clear cart</NavDropdown.Item>
-            </NavDropdown>
             </Badge>
+            <NavDropdown id="basic-nav-dropdown">
+              <NavDropdown.Item onClick={clearCart}>
+                Clear cart
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
           <Nav>
             <Nav.Link eventKey={2}>
