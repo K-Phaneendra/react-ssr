@@ -80,10 +80,10 @@ const Header = props => {
           <Nav className="nav-padding">
             <Badge count={cartCount} className="cart-count">
               <AiOutlineShoppingCart className="header-cart" />
-            </Badge>
-            <NavDropdown id="basic-nav-dropdown">
+              <NavDropdown id="basic-nav-dropdown">
               <NavDropdown.Item onClick={clearCart}>Clear cart</NavDropdown.Item>
             </NavDropdown>
+            </Badge>
           </Nav>
           <Nav>
             <Nav.Link eventKey={2}>

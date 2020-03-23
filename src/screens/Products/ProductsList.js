@@ -12,6 +12,7 @@ const ProductsList = props => {
           if (item.displayable) {
             return <ProductCard key={i + 1} image={item.media.main.medium.url} item={item} toggleIsFavorite={toggleIsFavorite} addToCart={addToCart} />;
           }
+          return null
         })}
       </ProductCardContainer>
     </>

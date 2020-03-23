@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext } from "react";
 import { Container, Row } from "react-bootstrap";
 
 import Header from "./components/Header";
